@@ -16,16 +16,16 @@ const client = axios.create({
   },
 });
 
-const query = {
-  jql: `project = ${JIRA_PROJECT_KEY} AND
-assignee = currentUser() AND
-status != Done`,
-  fields: ['summary', 'status', 'created', 'updated', 'Sprint'],
-};
-
 export async function getIssues(): Promise<SearchResponse> {
+  const body = {
+    jql: `project = ${JIRA_PROJECT_KEY} AND
+  assignee = currentUser() AND
+  status != Done`,
+    fields: ['summary', 'status', 'created', 'updated', 'Sprint'],
+  };
+
   try {
-    const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', query);
+    const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', body);
     return data;
   } catch (e) {
     // TODO throw new Error
@@ -35,4 +35,16 @@ export async function getIssues(): Promise<SearchResponse> {
       console.log('axios Error', e);
     }
   }
+}
+
+export async function createIssue(): Promise<any> {
+  // TODO
+}
+
+export async function updateIssue(): Promise<any> {
+  // TODO
+}
+
+export async function deleteIssue(): Promise<any> {
+  // TODO
 }
