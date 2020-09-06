@@ -1,3 +1,4 @@
+import { handleException, handleRejection } from './lib/exceptionHandler';
 const cmd = process.argv[2];
 
 async function main(): Promise<void> {
@@ -15,8 +16,12 @@ async function main(): Promise<void> {
     case 'delete':
       break;
     default:
+      if (cmd !== '') {
+        throw new Error();
+      }
       break;
   }
 }
-
+process.on('uncaughtException', handleException);
+process.on('unhandledRejection', handleRejection);
 main();
