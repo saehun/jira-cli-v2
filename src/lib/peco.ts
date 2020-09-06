@@ -1,7 +1,11 @@
 import * as fs from 'fs-extra';
 import { spawn } from 'child_process';
+import { JIRA_ISSUE_INDEX_PATH } from './env';
 
-export const peco = async (filepath: string, prompt = 'open'): Promise<string> => {
+export const peco = async (
+  prompt = 'open',
+  filepath = JIRA_ISSUE_INDEX_PATH
+): Promise<{ key: string; text: string }> => {
   if (!fs.existsSync(filepath)) {
     throw new Error('notFound');
   }
@@ -19,7 +23,14 @@ export const peco = async (filepath: string, prompt = 'open'): Promise<string> =
         // canceled
         process.exit(0);
       }
-      resolve(selected.trim());
+      const parsed = /\[(.+)\]/.exec(selected.trim());
+      if (!parsed) {
+        throw new Error('TODO implement thie error');
+      }
+      resolve({
+        key: parsed[1],
+        text: selected.trim(),
+      });
     });
   });
 };
