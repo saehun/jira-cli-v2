@@ -13,5 +13,8 @@ export interface Issue {
         key: string; // new, intermidiate, done
       };
     };
+    reporter: {
+      displayName: string;
+    };
   };
 }

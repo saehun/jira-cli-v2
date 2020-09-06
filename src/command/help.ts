@@ -8,6 +8,7 @@ async function command(): Promise<void> {
      - checkout
      - fetch
      - help
+     - current
      - (none)
 `);
 }

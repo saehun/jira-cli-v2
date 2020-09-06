@@ -1,13 +1,10 @@
 import * as fs from 'fs-extra';
 import { Issue } from './model';
-import { formatRelative } from 'date-fns';
-import { ko } from 'date-fns/locale';
+import { formatRelative } from './formatRelative';
 import { JIRA_ISSUE_INDEX_PATH } from './env';
 
 function stringifyIssue(issue: Issue): string {
-  const date = formatRelative(new Date(issue.fields.updated), new Date(), {
-    locale: ko,
-  });
+  const date = formatRelative(issue.fields.updated);
   // prettier-ignore
   return `${date}`.padEnd(10, ' ') +
          `${issue.fields.status.name}`.padEnd(10, ' ') +

@@ -21,20 +21,16 @@ export async function getIssues(): Promise<SearchResponse> {
     jql: `project = ${JIRA_PROJECT_KEY} AND
   assignee = currentUser() AND
   status != Done`,
-    fields: ['summary', 'status', 'created', 'updated', 'Sprint'],
+    fields: ['summary', 'status', 'created', 'updated', 'reporter'],
   };
 
-  try {
-    const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', body);
-    return data;
-  } catch (e) {
-    // TODO throw new Error
-    console.log(e);
-    if (e.isAxiosError) {
-      //   TODO
-      console.log('axios Error', e);
-    }
-  }
+  const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', body);
+  return data;
+}
+
+export async function getIssue(issueKey: string): Promise<Issue> {
+  const { data } = await client.get(`/rest/api/3/issue/${issueKey}`);
+  return data;
 }
 
 export async function createIssue(): Promise<any> {

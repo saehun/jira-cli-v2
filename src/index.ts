@@ -24,6 +24,9 @@ async function main(): Promise<void> {
     case 'delete':
       require('./command/delete').default();
       break;
+    case 'current':
+      require('./command/current').default();
+      break;
     default:
       if (cmd == null) {
         require('./command/list').default();
