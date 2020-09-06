@@ -27,6 +27,9 @@ async function main(): Promise<void> {
     case 'current':
       require('./command/current').default();
       break;
+    case 'commit':
+      require('./command/commit').default();
+      break;
     default:
       if (cmd == null) {
         require('./command/list').default();
