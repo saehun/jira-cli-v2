@@ -5,7 +5,7 @@ import * as path from 'path';
  * export JIRA_API_TOKEN=XXXXXXXXXXXXXXX
  * export JIRA_EMAIL=your@email
  * export JIRA_PROJECT_KEY=XXXX
- * export JIRA_API_ENDPOINT=https://xxx.atlassian.net/rest/api/3
+ * export JIRA_API_ENDPOINT=https://xxx.atlassian.net
  */
 // prettier-ignore
 

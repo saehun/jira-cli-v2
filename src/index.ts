@@ -4,6 +4,10 @@ const cmd = process.argv[2];
 
 async function main(): Promise<void> {
   switch (cmd) {
+    case null:
+    case undefined:
+      require('./command/list').default();
+      break;
     case '-h':
     case '--help':
     case 'help':
@@ -31,11 +35,7 @@ async function main(): Promise<void> {
       require('./command/commit').default();
       break;
     default:
-      if (cmd == null) {
-        require('./command/list').default();
-      } else {
-        throw new UnSupportedCommandError(cmd);
-      }
+      throw new UnSupportedCommandError(cmd);
   }
 }
 process.on('uncaughtException', handleException);
