@@ -1,26 +1,7 @@
-import { default as axios } from 'axios';
-import * as os from 'os';
-import * as path from 'path';
 import * as fs from 'fs-extra';
 import { peco } from './peco';
-
-/**
- * PUT below in .zshrc
- * export JIRA_API_TOKEN=XXXXXXXXXXXXXXX
- * export JIRA_EMAIL=your@email
- * export JIRA_PROJECT_KEY=XXXX
- * export JIRA_API_ENDPOINT=https://xxx.atlassian.net/rest/api/3
- */
-// prettier-ignore
-
-const {
-  JIRA_API_TOKEN,
-  JIRA_EMAIL,
-  JIRA_PROJECT_KEY,
-  JIRA_API_ENDPOINT
-} = process.env;
-const JIRA_AUTH = JIRA_EMAIL + ':' + JIRA_API_TOKEN;
-const JIRA_ISSUE_INDEX_PATH = path.join(os.homedir(), '.cache', 'jira', JIRA_PROJECT_KEY);
+import { JIRA_ISSUE_INDEX_PATH } from './env';
+import { Issue } from './model';
 
 function stringifyIssue(issue: Issue): string {
   console.log(issue);

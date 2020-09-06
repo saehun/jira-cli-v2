@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Issue } from './model';
+import { JIRA_API_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY } from './env';
 interface SearchResponse {
   expand: string;
   startAt: number;
@@ -15,7 +16,7 @@ status != Done`,
   fields: ['summary', 'status', 'created', 'updated'],
 };
 
-async function getIssues(): Promise<SearchResponse> {
+export async function getIssues(): Promise<SearchResponse> {
   try {
     const { data }: { data: SearchResponse } = await axios.post(JIRA_API_ENDPOINT + '/search', query, {
       headers: {
