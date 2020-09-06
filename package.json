@@ -34,6 +34,14 @@
     "ts-node-dev": "^1.0.0-pre.62",
     "typescript": "^4.0.2"
   },
+  "bin": {
+    "jira": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
   "dependencies": {
     "axios": "^0.20.0",
     "boxen": "^4.2.0",
