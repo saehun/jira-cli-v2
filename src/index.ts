@@ -5,21 +5,28 @@ const cmd = process.argv[2];
 async function main(): Promise<void> {
   switch (cmd) {
     case 'help':
+      require('./command/help').default();
       break;
     case 'checkout':
+      require('./command/checkout').default();
       break;
     case 'add':
+      require('./command/add').default();
       break;
     case 'fetch':
+      require('./command/fetch').default();
       break;
     case 'update':
+      require('./command/update').default();
       break;
     case 'delete':
+      require('./command/delete').default();
       break;
     default:
       if (cmd !== '') {
         throw new UnSupportedCommandError(cmd);
       }
+      require('./command/list').default();
       break;
   }
 }
