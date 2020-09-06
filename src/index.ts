@@ -22,57 +22,6 @@ const {
 const JIRA_AUTH = JIRA_EMAIL + ':' + JIRA_API_TOKEN;
 const JIRA_ISSUE_INDEX_PATH = path.join(os.homedir(), '.cache', 'jira', JIRA_PROJECT_KEY);
 
-interface Issue {
-  expand: string;
-  id: string;
-  self: string;
-  key: string; // XXX-3000
-  fields: {
-    summary: string; // Title
-    updated: string; // Date
-    created: string; // Date
-    status: {
-      name: string; // TODO, DONE, INPROGRESS,
-      statusCategory: {
-        key: string; // new, intermidiate, done
-      };
-    };
-  };
-}
-
-interface SearchResponse {
-  expand: string;
-  startAt: number;
-  maxResults: number;
-  total: number;
-  issues: Issue[];
-}
-
-const query = {
-  jql: `project = ${JIRA_PROJECT_KEY} AND
-assignee = currentUser() AND
-status != Done`,
-  fields: ['summary', 'status', 'created', 'updated'],
-};
-
-async function getIssues(): Promise<SearchResponse> {
-  try {
-    const { data }: { data: SearchResponse } = await axios.post(JIRA_API_ENDPOINT + '/search', query, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(JIRA_AUTH).toString('base64')}`,
-      },
-    });
-
-    return data;
-  } catch (e) {
-    console.log(e);
-    if (e.isAxiosError) {
-      //   TODO
-      console.log('axios Error', e);
-    }
-  }
-}
-
 function stringifyIssue(issue: Issue): string {
   console.log(issue);
   // prettier-ignore
