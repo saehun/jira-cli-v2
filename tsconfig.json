@@ -9,17 +9,9 @@
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "baseUrl": ".",
-    "paths": {
-      "*": [
-        "node_modules/*",
-        "types/*"
-      ]
-    },
     "lib": [ "dom", "esnext" ]
   },
   "include": [
     "src/**/*"
   ]
 }
-

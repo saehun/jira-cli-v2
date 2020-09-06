@@ -10,7 +10,7 @@ interface SearchResponse {
 }
 
 const client = axios.create({
-  url: JIRA_ENDPOINT,
+  baseURL: JIRA_ENDPOINT,
   headers: {
     Authorization: `Basic ${Buffer.from(JIRA_AUTH).toString('base64')}`,
   },
@@ -26,10 +26,9 @@ status != Done`,
 export async function getIssues(): Promise<SearchResponse> {
   try {
     const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', query);
-
-    console.log(JSON.stringify(data, undefined, 2));
     return data;
   } catch (e) {
+    // TODO throw new Error
     console.log(e);
     if (e.isAxiosError) {
       //   TODO
