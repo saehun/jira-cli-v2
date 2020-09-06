@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Issue } from './model';
-import { JIRA_API_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY } from './env';
+import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY } from './env';
 interface SearchResponse {
   expand: string;
   startAt: number;
@@ -9,21 +9,25 @@ interface SearchResponse {
   issues: Issue[];
 }
 
+const client = axios.create({
+  url: JIRA_ENDPOINT,
+  headers: {
+    Authorization: `Basic ${Buffer.from(JIRA_AUTH).toString('base64')}`,
+  },
+});
+
 const query = {
   jql: `project = ${JIRA_PROJECT_KEY} AND
 assignee = currentUser() AND
 status != Done`,
-  fields: ['summary', 'status', 'created', 'updated'],
+  fields: ['summary', 'status', 'created', 'updated', 'Sprint'],
 };
 
 export async function getIssues(): Promise<SearchResponse> {
   try {
-    const { data }: { data: SearchResponse } = await axios.post(JIRA_API_ENDPOINT + '/search', query, {
-      headers: {
-        Authorization: `Basic ${Buffer.from(JIRA_AUTH).toString('base64')}`,
-      },
-    });
+    const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', query);
 
+    console.log(JSON.stringify(data, undefined, 2));
     return data;
   } catch (e) {
     console.log(e);

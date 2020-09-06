@@ -12,7 +12,6 @@ export function stringifyIssue(issue: Issue): string {
 
 export async function saveToFile(issues: Issue[]): Promise<void> {
   const index = issues.map(stringifyIssue).join('\n');
-  console.log(index);
   await fs.outputFile(JIRA_ISSUE_INDEX_PATH, index);
   return;
 }
