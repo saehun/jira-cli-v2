@@ -23,7 +23,7 @@ export const peco = async (
         // canceled
         process.exit(0);
       }
-      const parsed = /\[(.+)\]/.exec(selected.trim());
+      const parsed = /\[(.+?)\]/.exec(selected.trim());
       if (!parsed) {
         throw new Error('TODO implement thie error');
       }
