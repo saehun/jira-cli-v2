@@ -4,6 +4,8 @@ const cmd = process.argv[2];
 
 async function main(): Promise<void> {
   switch (cmd) {
+    case '-h':
+    case '--help':
     case 'help':
       require('./command/help').default();
       break;
@@ -23,11 +25,11 @@ async function main(): Promise<void> {
       require('./command/delete').default();
       break;
     default:
-      if (cmd !== '') {
+      if (cmd == null) {
+        require('./command/list').default();
+      } else {
         throw new UnSupportedCommandError(cmd);
       }
-      require('./command/list').default();
-      break;
   }
 }
 process.on('uncaughtException', handleException);

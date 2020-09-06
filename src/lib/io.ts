@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import { Issue } from './model';
 import { JIRA_ISSUE_INDEX_PATH } from './env';
 
-export function stringifyIssue(issue: Issue): string {
+function stringifyIssue(issue: Issue): string {
   console.log(issue);
   // prettier-ignore
   return `${issue.fields.status.name}`.padEnd(10, ' ') +
