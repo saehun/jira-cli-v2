@@ -1,4 +1,5 @@
 import { handleException, handleRejection } from './lib/exceptionHandler';
+import { UnSupportedCommandError } from './lib/errors';
 const cmd = process.argv[2];
 
 async function main(): Promise<void> {
@@ -17,7 +18,7 @@ async function main(): Promise<void> {
       break;
     default:
       if (cmd !== '') {
-        throw new Error();
+        throw new UnSupportedCommandError(cmd);
       }
       break;
   }
