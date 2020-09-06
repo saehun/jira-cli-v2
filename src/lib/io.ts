@@ -6,7 +6,7 @@ import { JIRA_ISSUE_INDEX_PATH } from './env';
 function stringifyIssue(issue: Issue): string {
   const date = formatRelative(issue.fields.updated);
   // prettier-ignore
-  return `${date}`.padEnd(10, ' ') +
+  return `${date}`.padEnd(13, ' ') +
          `${issue.fields.status.name}`.padEnd(10, ' ') +
          `[${issue.key}]`.padEnd(13, ' ') +
          `${issue.fields.summary}`
