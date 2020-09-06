@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Issue } from './model';
+import { box } from './box';
 import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY } from './env';
 interface SearchResponse {
   expand: string;
@@ -29,8 +30,18 @@ export async function getIssues(): Promise<SearchResponse> {
 }
 
 export async function getIssue(issueKey: string): Promise<Issue> {
-  const { data } = await client.get(`/rest/api/3/issue/${issueKey}`);
-  return data;
+  try {
+    const { data } = await client.get(`/rest/api/3/issue/${issueKey}`);
+    return data;
+  } catch (e) {
+    // TODO move to ./errors.ts
+    if (e.isAxiosError && e.response.status === 404) {
+      console.log(box(`can't find issue with key ${issueKey} 😔`));
+      process.exit(0);
+    } else {
+      throw e;
+    }
+  }
 }
 
 export async function createIssue(): Promise<any> {
