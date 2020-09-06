@@ -16,7 +16,7 @@ commit or stash to clear working tree first 😔
     process.exit(0);
   }
 
-  const { key } = await peco();
+  const { key } = await peco('checkout');
   try {
     await execa('git', ['checkout', '-b', key]);
   } catch (e) {
