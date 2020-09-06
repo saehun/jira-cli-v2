@@ -1,6 +1,5 @@
 import * as execa from 'execa';
 import { peco } from '../lib/peco';
-import * as chalk from 'chalk';
 
 async function command(): Promise<void> {
   try {
@@ -18,7 +17,7 @@ commit or stash to clear working tree first 😔
   }
   const current = (await execa('git', ['branch', '--show-current'])).stdout;
 
-  const { key } = await peco(`checkout from ${chalk.green(current)}`);
+  const { key } = await peco(`checkout from ${current}`);
   try {
     await execa('git', ['checkout', '-b', key]);
   } catch (e) {
