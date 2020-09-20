@@ -5,7 +5,7 @@ import { JIRA_ENDPOINT } from '../lib/env';
 import { formatRelative } from '../lib/formatRelative';
 
 export async function printIssue(key: string): Promise<void> {
-  const issue = await getIssue(key);
+  const issue = await getIssue(key, true);
 
   const summary = issue.fields.summary;
   const created = formatRelative(issue.fields.created);
