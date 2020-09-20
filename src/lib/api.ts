@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Issue } from './model';
 import { box } from './box';
-import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY } from './env';
+import * as fs from 'fs-extra';
+import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY, JIRA_ISSUE_INDEX_PATH } from './env';
 interface SearchResponse {
   expand: string;
   startAt: number;
@@ -29,8 +30,14 @@ export async function getIssues(): Promise<SearchResponse> {
   return data;
 }
 
-export async function getIssue(issueKey: string): Promise<Issue> {
+export async function getIssue(issueKey: string, local = false): Promise<Issue> {
   try {
+    if (local) {
+      const issues: any[] = JSON.parse(fs.readFileSync(JIRA_ISSUE_INDEX_PATH + '.json', 'utf-8'));
+      const data = issues.find(issue => issue.key === issueKey);
+      if (data) return data;
+    }
+
     const { data } = await client.get(`/rest/api/3/issue/${issueKey}`);
     return data;
   } catch (e) {
