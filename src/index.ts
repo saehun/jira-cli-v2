@@ -34,6 +34,9 @@ async function main(): Promise<void> {
     case 'commit':
       require('./command/commit').default();
       break;
+    case 'open':
+      require('./command/open').default();
+      break;
     default:
       throw new UnSupportedCommandError(cmd);
   }
