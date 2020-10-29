@@ -1,6 +1,6 @@
-import { peco } from '../lib/peco';
+import { select } from '../lib/select';
 async function command(): Promise<void> {
-  const { key } = await peco('open');
+  const key = await select('open');
   require('../lib/print').printIssue(key);
 }
 

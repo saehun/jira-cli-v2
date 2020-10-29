@@ -1,23 +1,16 @@
 import * as execa from 'execa';
-import { peco } from '../lib/peco';
+import { select } from '../lib/select';
 
 async function command(): Promise<void> {
   try {
-    const { stdout } = await execa('git', ['status']);
-    if (!stdout.includes('working tree clean')) {
-      console.log(stdout);
-      console.log(`
-commit or stash to clear working tree first 😔
-`);
-      process.exit(0);
-    }
+    await execa('git', ['status']);
   } catch (e) {
     console.log(e.stderr);
     process.exit(0);
   }
   const current = (await execa('git', ['branch', '--show-current'])).stdout;
 
-  const { key } = await peco(`checkout from ${current}`);
+  const key = await select(`checkout from ${current}`);
   try {
     await execa('git', ['checkout', '-b', key]);
   } catch (e) {
