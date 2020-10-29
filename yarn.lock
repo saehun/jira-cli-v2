@@ -3232,6 +3232,11 @@ node-notifier@^8.0.0:
     uuid "^8.3.0"
     which "^2.0.2"
 
+node-peco@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/node-peco/-/node-peco-0.1.4.tgz#642a89459bf8869fe9774b2dbcef564d54d81b5b"
+  integrity sha512-qGdjV0j4seRLqr6JF1ZjsXwVUdcpYV8GoFf7fOVygqZ/H0GuSB1jF2vDNAECLeIwliw0qT2DQBTZhVnVWtepvA==
+
 normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"
