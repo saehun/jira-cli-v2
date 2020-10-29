@@ -1,4 +1,5 @@
 import * as chalk from 'chalk';
+import { writeSync } from 'clipboardy';
 import { leftbox } from '../lib/box';
 import { getIssue } from '../lib/api';
 import { JIRA_ENDPOINT } from '../lib/env';
@@ -23,4 +24,5 @@ status   = ${chalk.greenBright(status)}
 reporter = ${chalk.greenBright(reporter)}
 url      = ${chalk.blueBright(url)}`)
   );
+  writeSync(`[${key}] ${summary}`);
 }
