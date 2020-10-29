@@ -22,7 +22,8 @@ export async function getIssues(): Promise<SearchResponse> {
   const body = {
     jql: `project = ${JIRA_PROJECT_KEY} AND
   assignee = currentUser() AND
-  status != Done`,
+  status != Done AND
+  status != Approved`,
     fields: ['summary', 'status', 'created', 'updated', 'reporter'],
   };
 
