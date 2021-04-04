@@ -1,5 +1,4 @@
 export interface Issue {
-  expand: string;
   id: string;
   self: string;
   key: string; // XXX-3000
@@ -9,9 +8,6 @@ export interface Issue {
     created: string; // Date
     status: {
       name: string; // TODO, DONE, INPROGRESS,
-      statusCategory: {
-        key: string; // new, intermidiate, done
-      };
     };
     reporter: {
       displayName: string;

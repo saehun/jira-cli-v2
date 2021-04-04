@@ -3,6 +3,7 @@ import { Issue } from './model';
 import { box } from './box';
 import * as fs from 'fs-extra';
 import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY, JIRA_ISSUE_INDEX_PATH } from './env';
+
 interface SearchResponse {
   expand: string;
   startAt: number;
@@ -27,8 +28,27 @@ export async function getIssues(): Promise<SearchResponse> {
     fields: ['summary', 'status', 'created', 'updated', 'reporter'],
   };
 
-  const { data }: { data: SearchResponse } = await client.post('/rest/api/3/search', body);
-  return data;
+  const { data } = await client.post<SearchResponse>('/rest/api/3/search', body);
+
+  /** Delete unused properties */
+  const issues: Issue[] = data.issues.map(issue => ({
+    fields: {
+      created: issue.fields.created,
+      updated: issue.fields.updated,
+      reporter: {
+        displayName: issue.fields.reporter.displayName,
+      },
+      status: {
+        name: issue.fields.status.name,
+      },
+      summary: issue.fields.summary,
+    },
+    id: issue.id,
+    key: issue.key,
+    self: issue.self,
+  }));
+  const searchResponse: SearchResponse = { ...data, issues };
+  return searchResponse;
 }
 
 export async function getIssue(issueKey: string, local = false): Promise<Issue> {
