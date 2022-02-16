@@ -11,7 +11,7 @@ function stringifyIssue(issue: Issue, branch: string): string {
   // prettier-ignore
   return `${date}`.padEnd(18, ' ') +
          `${issue.fields.status.name.slice(0, 6)}`.padEnd(8, ' ') + (current ? '* ' : '  ') +
-         `[${issue.key}]`.padEnd(13, ' ') +
+         `[${issue.key}]`.padEnd(14, ' ') +
          `${issue.fields.summary}`
 }
 
