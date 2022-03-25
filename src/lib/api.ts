@@ -51,11 +51,15 @@ export async function getIssues(): Promise<SearchResponse> {
   return searchResponse;
 }
 
+export function getIssueFromLocalIndex(issueKey: string): Promise<Issue> {
+  const issues: any[] = JSON.parse(fs.readFileSync(JIRA_ISSUE_INDEX_PATH + '.json', 'utf-8'));
+  return issues.find(issue => issue.key === issueKey);
+}
+
 export async function getIssue(issueKey: string, local = false): Promise<Issue> {
   try {
     if (local) {
-      const issues: any[] = JSON.parse(fs.readFileSync(JIRA_ISSUE_INDEX_PATH + '.json', 'utf-8'));
-      const data = issues.find(issue => issue.key === issueKey);
+      const data = await getIssueFromLocalIndex(issueKey);
       if (data) return data;
     }
 

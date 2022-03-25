@@ -37,6 +37,9 @@ async function main(): Promise<void> {
     case 'open':
       require('./command/open').default();
       break;
+    case 'pr':
+      require('./command/pull-reqeuest').default();
+      break;
     default:
       throw new UnSupportedCommandError(cmd);
   }
