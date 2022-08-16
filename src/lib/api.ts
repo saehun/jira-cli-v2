@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Issue } from './model';
 import { box } from './box';
 import * as fs from 'fs-extra';
-import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_PROJECT_KEY, JIRA_ISSUE_INDEX_PATH } from './env';
+import { JIRA_ENDPOINT, JIRA_AUTH, JIRA_ISSUE_INDEX_PATH } from './env';
 
 interface SearchResponse {
   expand: string;
@@ -19,9 +19,9 @@ const client = axios.create({
   },
 });
 
-export async function getIssues(): Promise<SearchResponse> {
+export async function getIssues(projectKey: string): Promise<SearchResponse> {
   const body = {
-    jql: `project = ${JIRA_PROJECT_KEY} AND
+    jql: `project = ${projectKey} AND
   assignee = currentUser() AND
   status != Done AND
   status != Approved`,
