@@ -24,7 +24,8 @@ export async function getIssues(projectKey: string): Promise<SearchResponse> {
     jql: `project = ${projectKey} AND
   assignee = currentUser() AND
   status != Done AND
-  status != Approved`,
+  status != Approved AND
+  status != Archived`,
     fields: ['summary', 'status', 'created', 'updated', 'reporter'],
   };
 

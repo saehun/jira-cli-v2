@@ -13,7 +13,7 @@ async function command(): Promise<void> {
   const issue = await getIssueFromLocalIndex(branchName.replace(/^\w+\//, ''));
   const repositoryUrl = await currentRepositoryUrl();
   const [scope, ...rest] = issue.fields.summary.split(' ');
-  writeSync(`feat(${scope}): ` + rest.join(' ') + ` [${issue.key}]`);
+  writeSync(`[${issue.key}] feat(${scope}): ` + rest.join(' '));
   open(`${repositoryUrl}/compare/${branchName}?expand=1`);
 }
 

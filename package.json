@@ -6,11 +6,10 @@
   "main": "dist/index.js",
   "repository": "minidonut/[{project-name}}",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && ./postbuild.sh",
     "test": "NODE_ENV=test ts-node ./node_modules/.bin/jest",
     "lint": "eslint . --ext .js,.ts",
-    "start": "ts-node src/index.ts",
-    "postbuild": "./postbuild.sh"
+    "start": "ts-node src/index.ts"
   },
   "author": {
     "name": "Karl Saehun Chung",
